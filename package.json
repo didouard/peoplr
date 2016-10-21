@@ -1,0 +1,37 @@
+{
+  "name": "peoplr",
+  "version": "1.0.0",
+  "description": "Get card and relation on people",
+  "dependencies": {
+    "body-parser": "~1.15.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.2.0",
+    "express": "~4.13.4",
+    "forms": "^1.2.0",
+    "jade": "~1.11.0",
+    "mongoose": "^4.6.4",
+    "morgan": "~1.7.0",
+    "node-wrapper": "0.0.32",
+    "serve-favicon": "~2.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node ./bin/www",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/didouard/peoplr.git"
+  },
+  "keywords": [
+    "card",
+    "contact",
+    "related"
+  ],
+  "author": "Edouard FERRARI <edouard@ferrari.wf>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/didouard/peoplr/issues"
+  },
+  "homepage": "https://github.com/didouard/peoplr#readme"
+}

@@ -1,0 +1,7 @@
+extends layout
+
+block content
+  h1= title
+    form(name="add-estimation", method="post")
+    div!= form
+    input(type="submit", value="add")
