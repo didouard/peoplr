@@ -29,6 +29,7 @@ var routes = (callback) => {
   
   app.use('/', routes);
   app.use('/add', add);
+  return callback();
 };
 
 var mongodb = (callback) => {
@@ -46,8 +47,13 @@ var mongodb = (callback) => {
     , password: String
     });
     
+    db.models = {};
+    db.models.Card = mongoose.model('Card', db.schemas.card);
+    
+    db.mongoose = mongoose;
+    
     app.use(function (req, res, next) {
-      req.db = { mongoose: mongoose };
+      req.db = db;
       next();
     });
     
@@ -56,17 +62,12 @@ var mongodb = (callback) => {
 };
 
 var handleAppError = (callback) => {
-  // catch 404 and forward to error handler
   app.use(function(req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
   });
   
-  // error handlers
-  
-  // development error handler
-  // will print stacktrace
   if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
       res.status(err.status || 500);
@@ -76,9 +77,7 @@ var handleAppError = (callback) => {
       });
     });
   }
-  
-  // production error handler
-  // no stacktraces leaked to user
+
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
@@ -90,8 +89,7 @@ var handleAppError = (callback) => {
   return callback();
 };
 
-var jobs = [routes, mongodb, handleAppError];
+var jobs = [mongodb, routes, handleAppError];
 async.series(jobs, () => console.log("App loaded"));
-
 
 module.exports = app;
