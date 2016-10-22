@@ -1,18 +1,24 @@
 var express = require('express');
 var forms = require("forms");
 var router = express.Router();
+var mongoose = require("mongoose");
 
 var fields = forms.fields,
     validators = forms.validators;
-
 var reg_form = forms.create({
+  username: fields.string({ required: true })
+  , email: fields.string({ required: true, label: 'Email' })
+});
+
+
+/*var reg_form = forms.create({
     username: fields.string({ required: true }),
     password: fields.password({ required: true }),
     confirm: fields.password({
         required: true,
         validators: [validators.matchField('password')]
     }),
-/*    personal: {
+    personal: {
         name: fields.string({ required: true, label: 'Name' }),
         email: fields.email({ required: true, label: 'Email' }),
         address: {
@@ -22,7 +28,12 @@ var reg_form = forms.create({
             state: fields.string({ required: true, label: 'State' }),
             zip: fields.number({ required: true, label: 'ZIP' })
         }
-    }*/
+    }
+});*/
+
+var cardSchema = mongoose.Schema({
+  username: String
+  , password: String
 });
 
 /* GET users listing. */
@@ -39,6 +50,10 @@ router.post('/', function (req, res, next) {
       res.writeHead(200, { 'Content-Type': 'text/html' });
       res.write('<h1>Success!</h1>');
       res.end('<pre>' + console.log(form.data) + '</pre>');
+      
+      var card = mongoose.model('Card', cardSchema);
+      
+      
     },
     // perhaps also have error and empty events
     other: function (form) {
